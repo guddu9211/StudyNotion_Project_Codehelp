@@ -40,9 +40,10 @@ exports.createCategory = async (req, resp) => {
 
 exports.showAllCategories = async (req, resp) => {
     try{
+        // console.log("Fetching all Categories information from DB");
         const allCategories = await Category.find({}, {name: true, description: true, link: true});    // return all the Categories bcoz i haven't added any condition, but make sure that name and description is available
         
-        
+        // console.log("list of categories ",allCategories)
         return resp.status(200).json({
             success: true,
             categories: allCategories,

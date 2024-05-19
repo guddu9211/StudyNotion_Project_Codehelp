@@ -10,6 +10,9 @@ exports.createCourse = async (req, resp) => {
     try{
         //  fetch all data from request body 
         const {courseName, courseDescription, whatYouWillLearn, price, category, tag} = req.body;
+        console.log("Gathered input fields for course creation : "
+        +courseName+", "+courseDescription+", "+whatYouWillLearn+", "+price+", "+category+", "+tag
+        );
 
         // get thumbnail 
         const thumbnail = req.files.thumbnailImage;

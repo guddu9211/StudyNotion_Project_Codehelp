@@ -69,12 +69,15 @@ export const fetchCourseDetails = async (courseId) => {
 export const fetchCourseCategories = async () => {
   let result = []
   try {
-    const response = await apiConnector("GET", COURSE_CATEGORIES_API)
-    console.log("COURSE_CATEGORIES_API API RESPONSE............", response)
+    const response = await apiConnector("GET", COURSE_CATEGORIES_API);
+    // console.log("COURSE_CATEGORIES_API API RESPONSE............", response)
     if (!response?.data?.success) {
       throw new Error("Could Not Fetch Course Categories")
     }
-    result = response?.data?.data
+    // console.log("Simple data: ",response?.data)
+    // console.log("categories ka data ",response?.data?.categories)
+    result = response?.data?.categories
+    // console.log("Show all categories response is ", result)
   } catch (error) {
     console.log("COURSE_CATEGORY_API API ERROR............", error)
     toast.error(error.message)

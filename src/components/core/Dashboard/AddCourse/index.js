@@ -3,7 +3,7 @@ import RenderSteps from "./RenderSteps";
 
 export default function AddCourse() {
     return (
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-4 items-start">
             {/* left section for course details and update  */}
             <div className="w-3/4 flex flex-col gap-2">
                 <h1 className="text-3xl text-richblack-100">Add Course</h1>

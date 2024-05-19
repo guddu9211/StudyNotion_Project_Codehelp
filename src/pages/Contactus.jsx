@@ -2,7 +2,7 @@ import React from 'react'
 import ContactUsForm from '../components/core/ContactPage/ContactUsForm'
 import Footer from './Footer'
 import ReviewPanel from '../components/common/ReviewPanel'
-import SetIcon from '../components/common/SetIcon'
+import SetGiIcon from '../components/common/SetGiIcon'
 
 const contactusData = [
     {
@@ -39,7 +39,7 @@ const Contactus = () => {
                             return (
                                 <div key={index} className='flex flex-row gap-2 justify-start items-start p-4'>
                                     <div>
-                                        <SetIcon iconName={data.icon} />
+                                        <SetGiIcon iconName={data.icon} />
                                     </div>
                                     <div className='flex flex-col gap-1'>
                                         <h1 className='text-richblack-50 text-md'>{data.title}</h1>

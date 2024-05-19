@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Icons from 'react-icons/gi'
 
-const SetIcon = ({iconName}) => {
+const SetGiIcon = ({iconName}) => {
 
     const Icon = Icons[iconName];
 
@@ -10,4 +10,4 @@ const SetIcon = ({iconName}) => {
   )
 }
 
-export default SetIcon
+export default SetGiIcon

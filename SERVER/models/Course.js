@@ -15,6 +15,10 @@ const courseSchema = new mongoose.Schema({
         required: true,
         ref: "User",
     },
+    instructions: {
+        type: String,
+        trim: true,
+    },
     whatYouWillLearn: {
         type: String,
     },
