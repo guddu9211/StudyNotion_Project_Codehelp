@@ -1,0 +1,34 @@
+/* write your css here */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+html, body {
+    overflow-x: hidden;
+}
+
+.homepage_bg {
+    background: url('../src/assets/Images/bghome.svg');
+}
+
+.card-shadow {
+    box-shadow: 10px 10px 0px #FFD60A;
+}
+
+.bottom-right-shadow {
+    box-shadow: 20px 20px 0px #fffdf3;
+}
+
+.top-left-shadow {
+    box-shadow: -20px -20px 0px #fffdf3;
+}
+
+.top-glow-large {
+    box-shadow: -20px -20px 0px 20px #66e8d6;
+}
+
+sup {
+    font-size: 0.5rem;
+    color: red;
+}
