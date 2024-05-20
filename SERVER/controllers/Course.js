@@ -9,10 +9,23 @@ const {uploadImageToCloudinary} = require('../utils/imageUploader');
 exports.createCourse = async (req, resp) => {
     try{
         //  fetch all data from request body 
-        const {courseName, courseDescription, whatYouWillLearn, price, category, tag} = req.body;
-        console.log("Gathered input fields for course creation : "
-        +courseName+", "+courseDescription+", "+whatYouWillLearn+", "+price+", "+category+", "+tag
-        );
+        let {
+            courseName,
+            courseDescription,
+            whatYouWillLearn,
+            price,
+            tag: _tag,
+            category,
+            status,
+            instructions: _instructions,
+        } = req.body;
+          
+      
+        // Convert the tag and instructions from stringified Array to Array
+        const tag = JSON.parse(_tag)
+        const instructions = JSON.parse(_instructions)
+
+        console.log("Gathered input fields for course creation : "+courseName+", "+courseDescription+", "+whatYouWillLearn+", "+price+", "+category+", "+tag);
 
         // get thumbnail 
         const thumbnail = req.files.thumbnailImage;
@@ -25,6 +38,9 @@ exports.createCourse = async (req, resp) => {
             });
         }
         console.log("Details of course creation  validated successfully")
+        if (!status || status === undefined) {
+            status = "Draft"
+        }
 
         // check for instructor [ db call kar le, bcoz instructor ki detail daalni hoti hai course me ]
         const userId = req.user.id;
@@ -61,8 +77,10 @@ exports.createCourse = async (req, resp) => {
             whatYouWillLearn,
             price,
             tag,
+            instructions,
             category: categoryDetails._id,      // use $push for pushing it to the category
             thumbnail: thumbnailImg.secure_url,
+            status: status,
         })
         console.log("Entry created in course")
         // update this course to the user's course list (bcoz this user is an instructor)
@@ -87,6 +105,18 @@ exports.createCourse = async (req, resp) => {
         //     },
         //     {new: true}
         // )
+
+        // Add the new course to the Categories
+        const categoryDetails2 = await Category.findByIdAndUpdate(
+        { _id: category },
+        {
+            $push: {
+                    courses: newCourse._id,
+                },
+            },
+            { new: true }
+        )
+        console.log("HEREEEEEEEE", categoryDetails2)
 
         // return response
         return resp.status(200).json({

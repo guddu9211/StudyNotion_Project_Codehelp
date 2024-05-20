@@ -9,6 +9,8 @@ import IconBtn from '../../../common/IconBtn';
 import toast from 'react-hot-toast';
 import {COURSE_STATUS} from '../../../../utils/constants'
 import { MdNavigateNext } from "react-icons/md"
+import ChipInput from './ChipInput';
+import UploadThumbnail from './UploadThumbnail'
 
 const CourseInformationForm = () => {
 
@@ -56,11 +58,11 @@ const CourseInformationForm = () => {
         if(currentValues.courseTitle !== course.courseName || 
             currentValues.courseShortDesc !== course.courseDescription || 
             currentValues.coursePrice !== course.price || 
-            // currentValues.courseTags !== course.tag || 
+            currentValues.courseTags !== course.tag || 
             currentValues.courseBenefits !== course.whatYouWillLearn || 
             currentValues.courseCategory !== course.category || 
             currentValues.courseRequirements.toString() !== course.instructions.toString()  
-            // || currentValues.courseThumbnail !== course.thumbnail
+            || currentValues.courseThumbnail !== course.thumbnail
             ){
             return true;
         }
@@ -108,10 +110,7 @@ const CourseInformationForm = () => {
                 setStep(2);
                 dispatch(setStep(2));
             }
-            return;
-        
-        
-        
+            return;     
         }  else{
             toast.error("No changes made to the form")
         }    
@@ -224,7 +223,7 @@ const CourseInformationForm = () => {
 
 
         {/* create a custom component for handling tag inputs  */}
-        {/* <ChipInput 
+        <ChipInput 
             label="tags"
             name="courseTags"
             placeholder="Enter tags and press enter"
@@ -232,17 +231,18 @@ const CourseInformationForm = () => {
             errors={errors}
             setValue={setValue}
             getValues={getValues}
-            /> */}
+            />
 
         {/* create a component of uploading and displaying thumbnail for course  */}
-        {/* <UploadThumbnail 
+        <UploadThumbnail 
             name="courseThumbnail"
             label="Course Thumbnail"
             register={register}
             setValue={setValue}
             getValues={getValues}
             errors={errors}
-            /> */}
+            editData={editCourse ? course?.thumbnail : null}
+            />
 
         <div>
             <label htmlFor='courseBenefits'>Course Benefits</label>

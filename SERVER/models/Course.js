@@ -16,7 +16,7 @@ const courseSchema = new mongoose.Schema({
         ref: "User",
     },
     instructions: {
-        type: String,
+        type: [String],
         trim: true,
     },
     whatYouWillLearn: {
