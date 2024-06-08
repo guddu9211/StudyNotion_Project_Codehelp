@@ -3,9 +3,13 @@ const router = express.Router();
 
 // Course Controllers Import
 const {
-    createCourse,
-    getAllCourses,
-    getCourseDetails,
+  createCourse,
+  getAllCourses,
+  getCourseDetails,
+  getFullCourseDetails,
+  editCourse,
+  getInstructorCourses,
+  deleteCourse,
   } = require("../controllers/Course")
   
   
@@ -47,6 +51,8 @@ const {
   
   // Courses can Only be Created by Instructors
   router.post("/createCourse", auth, isInstructor, createCourse)
+  // Edit Course routes
+  router.post("/editCourse", auth, isInstructor, editCourse)
   //Add a Section to a Course
   router.post("/addSection", auth, isInstructor, createSection)
   // Update a Section

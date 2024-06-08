@@ -2,8 +2,8 @@ import React from 'react'
 import { FaCheck } from 'react-icons/fa6';
 import { useSelector } from 'react-redux'
 import CourseInformationForm from './CourseInformationForm';
-import CourseBuilderForm from './CourseBuilderForm';
-import PublishCourse from './PublishCourse';
+import { CourseBuilderForm } from './CourseBuilder/CourseBuilderForm';
+import { PublishCourses } from './PublishCourse/PublishCourses';
 
 const RenderSteps = () => {
 
@@ -27,12 +27,12 @@ const RenderSteps = () => {
   return (
     <>
       <div className='w-full border-[1px] border-dashed border-yellow-200 rounded-md p-4 text-richblack-25'>
-        <div className='flex flex-row items-center justify-between'>
+        <div className='flex flex-row items-center justify-between px-10'>
           {
             steps.map( (item, index) => (
-              <>
-                <div key={index}>
-                  <div className={` ${step === item.id ? 'bg-yellow-800 border-yellow-50 text-yellow-50' 
+              <div key={index}>
+                <div >
+                  <div className={` ${step >= item.id ? 'bg-yellow-800 border-yellow-50 text-yellow-50' 
                   : 'bg-richblack-800 border-richblack-700 text-richblack-200'}  
                   flex items-center justify-center w-10 h-10 rounded-full border-2
                   `}>
@@ -47,20 +47,20 @@ const RenderSteps = () => {
                 {/* {
                   item.id !== steps.length 
                 } */}
-              </>
+              </div>
             ))  
           }
         </div>
         <div className='flex flex-row items-center justify-between'>
           {
             steps.map( (item, index) => (
-              <>
-                <div key={index}>
+              <div key={index}>
+                <>
                   <p className='text-richblack-100'>
                     {item.title}
                   </p>
-                </div>
-              </>
+                </>
+              </div>
             ))
           }
         </div>
@@ -75,7 +75,7 @@ const RenderSteps = () => {
         step === 2 && <CourseBuilderForm/>
       }
       {
-        step === 3 && <PublishCourse/>
+        step === 3 && <PublishCourses/>
       }
     </>
   )

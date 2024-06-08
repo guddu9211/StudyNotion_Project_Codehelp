@@ -5,13 +5,13 @@ const Course = require('../models/Course')
 exports.createSection = async (req, resp) => {
     try{
         // get title of section 
-        const {sectionName, courseID} = req.body;
-        console.log("section name is ",sectionName,courseID)
+        const {sectionName, courseId} = req.body;
+        console.log("section creation data received: ",sectionName,courseId)
         // validation
-        if(!sectionName || !courseID){
+        if(!sectionName || !courseId){
             return resp.status(400).json({
                 success: false,
-                message: "Invalid section name is supplied"
+                message: "Invalid section name or courseId value is supplied"
             });
         }
 
@@ -22,7 +22,7 @@ exports.createSection = async (req, resp) => {
 
         // update course with section id
         const updatedCourse = await Course.findByIdAndUpdate(
-            courseID,
+            courseId,
             {
                 $push: {
                     courseContent: newSection._id
@@ -54,6 +54,7 @@ exports.updateSection = async (req, resp) => {
     // we don't need to update the ID of section in Course content, bcoz we are changing the title only
     try {
         const {sectionName, sectionId} = req.body;
+        console.log("Section Name: ",sectionName," Section Id: ",(sectionId));
 
         // validation
         if(!sectionName || !sectionId){
@@ -69,6 +70,7 @@ exports.updateSection = async (req, resp) => {
             {sectionName},
             {new: true}
         );
+        console.log("Section response: ",section);
 
         // return response 
         return resp.status(200).json({

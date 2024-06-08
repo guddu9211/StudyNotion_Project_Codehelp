@@ -72,48 +72,55 @@ const CourseInformationForm = () => {
     // handle next button click
     const onSubmit = async (data) => {
         console.log("Form submitted ", data);
-        if(editCourse && isFormUpdated()) {
-            const currentValues = getValues();
-            const formData = new FormData();
+        if(editCourse) {
+            if(isFormUpdated()){
+                const currentValues = getValues();
+                const formData = new FormData();
 
-            formData.append("courseId", course._id);
-            if(currentValues.courseTitle !== course.courseName){
-                formData.append("courseName", data.courseTitle);
-            }
-            if(currentValues.courseShortDesc !== course.courseDescription){
-                formData.append("courseDescription", data.courseShortDesc);
-            }
-            if(currentValues.coursePrice !== course.price){
-                formData.append("price", data.coursePrice);
-            }
-            // if(currentValues.courseTags !== course.tag){
-            //     formData.append("tag", data.courseTags);
-            // }
-            if(currentValues.courseBenefits !== course.whatYouWillLearn){
-                formData.append("whatYouWillLearn", data.courseBenefits);
-            }
-            if(currentValues.courseCategory !== course.category){
-                formData.append("category", data.courseCategory);
-            }
-            if(currentValues.courseRequirements.toString() !== course.instructions.toString()){
-                formData.append("instructions", JSON.stringify(data.courseRequirements));
-            }
-            // if(currentValues.courseThumbnail !== course.thumbnail){
-            //     formData.append("thumbnail", data.courseThumbnail);
-            // }
+                formData.append("courseId", course._id);
+                if(currentValues.courseTitle !== course.courseName){
+                    formData.append("courseName", data.courseTitle);
+                }
+                if(currentValues.courseShortDesc !== course.courseDescription){
+                    formData.append("courseDescription", data.courseShortDesc);
+                }
+                if(currentValues.coursePrice !== course.price){
+                    formData.append("price", data.coursePrice);
+                }
+                if(currentValues.courseTags !== course.tag){
+                    formData.append("tag", JSON.stringify(data.courseTags));
+                }
+                if(currentValues.courseBenefits !== course.whatYouWillLearn){
+                    formData.append("whatYouWillLearn", data.courseBenefits);
+                }
+                if(currentValues.courseCategory !== course.category){
+                    formData.append("category", data.courseCategory);
+                }
+                if(currentValues.courseRequirements.toString() !== course.instructions.toString()){
+                    formData.append("instructions", JSON.stringify(data.courseRequirements));
+                }
+                if(currentValues.courseThumbnail !== course.thumbnail){
+                    formData.append("thumbnail", data.courseThumbnail);
+                }
 
-            setLoading(true);
-            const result = await editCourseDetails(formData, token);
-            setLoading(false);
-
-            if(result){
-                setStep(2);
-                dispatch(setStep(2));
+                setLoading(true);
+                console.log("Calling Edit Course Details API");
+                const result = await editCourseDetails(formData, token);
+                console.log("Final result of Course edit: ", result);
+                setLoading(false);
+                
+                if(result){
+                    console.log("Dispatching to next step with course details: ", result);
+                    dispatch(setCourse(result));
+                    dispatch(setStep(2));
+                }
+                return;     
+            }  else{
+                toast.error("No changes made to the form")
             }
-            return;     
-        }  else{
-            toast.error("No changes made to the form")
-        }    
+        }
+                
+        console.log("Creating a new course")
         createNewCourse(data);
     }
 
@@ -122,17 +129,18 @@ const CourseInformationForm = () => {
         formData.append("courseName", data.courseTitle);
         formData.append("courseDescription", data.courseShortDesc);
         formData.append("price", data.coursePrice);
-        // formData.append("tag", data.courseTags);
+        formData.append("tag", JSON.stringify(data.courseTags));
         formData.append("whatYouWillLearn", data.courseBenefits);
         formData.append("category", data.courseCategory);
         formData.append("instructions", JSON.stringify(data.courseRequirements));
-        // formData.append("thumbnail", data.courseThumbnail);
+        formData.append("thumbnailImage", data.courseThumbnail);
         formData.append("status", COURSE_STATUS.DRAFT)
 
         setLoading(true);
         const result = await addCourseDetails(formData, token);
         if(result){
-            setStep(2);
+            console.log("Response of Course Creation collected :) ", result);
+            dispatch(setStep(2));
             dispatch(setCourse(result));
         }
         setLoading(false);
@@ -208,7 +216,7 @@ const CourseInformationForm = () => {
                     <option value="" disabled className='py-2'>Choose a category</option>
                     {
                         !loading && courseCategories.map( (category, index) => (
-                            <option key={index} value={category.id} className='py-2'>
+                            <option key={index} value={category._id} className='py-2'>
                                 {category.name}
                             </option>
                         ))
@@ -242,7 +250,7 @@ const CourseInformationForm = () => {
             getValues={getValues}
             errors={errors}
             editData={editCourse ? course?.thumbnail : null}
-            />
+        />
 
         <div>
             <label htmlFor='courseBenefits'>Course Benefits</label>
@@ -287,7 +295,7 @@ const CourseInformationForm = () => {
                 disabled={loading}
                 text={!editCourse ? "Next" : "Save Changes"}
             >
-            <MdNavigateNext />
+                <MdNavigateNext />
             </IconBtn>
 
         </div>

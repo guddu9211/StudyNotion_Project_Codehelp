@@ -176,7 +176,7 @@ export const createSubSection = async (data, token) => {
 }
 
 // update a section
-export const updateSection = async (data, token) => {
+export const   updateSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
   try {
