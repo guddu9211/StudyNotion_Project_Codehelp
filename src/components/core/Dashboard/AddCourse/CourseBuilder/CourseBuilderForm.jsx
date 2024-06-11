@@ -14,7 +14,6 @@ export const CourseBuilderForm = () => {
     register,
     handleSubmit,
     setValue,
-    getValues,
     formState: {errors},
   } = useForm();
 
@@ -25,7 +24,7 @@ export const CourseBuilderForm = () => {
   const dispatch = useDispatch();
 
   const cancelEdit = () => {
-    setEditSectionName(false);
+    setEditSectionName(null);
     setValue("sectionName", "");
   }
 
@@ -74,6 +73,7 @@ export const CourseBuilderForm = () => {
     }
 
     // some work to be done post update of values 
+    console.log("section result", result)
     if(result){
       dispatch(setCourse(result));
       setEditSectionName(false);
@@ -86,6 +86,7 @@ export const CourseBuilderForm = () => {
 
   // use this function to be passed to nested view
   const handleChangeEditSectionName = (sectionId, sectionName) => {
+    console.log("section Id: ",sectionId, " section Name: ", sectionName)
     if(editSectionName === sectionId){
       cancelEdit();
       return;
@@ -105,6 +106,7 @@ export const CourseBuilderForm = () => {
           <input 
             type='text'
             id='sectionName'
+            disabled={loading}
             placeholder='Add section name'
             {...register("sectionName", {required: true})}
             className='w-full bg-richblack-700 text-lg rounded-md py-2 px-4 my-2'
@@ -119,7 +121,7 @@ export const CourseBuilderForm = () => {
         {/* create section ka button  */}
         <div className='mt-2 flex w-full gap-4'>
           <IconBtn type={"submit"} text={editSectionName ? "Edit Section" : "Create Section"} 
-                  onclick={handleSubmit(onSubmit)}
+                  onclick={() => handleSubmit(onSubmit)}
                   outline={true}
                   customClasses={'text-white'}
                 >
@@ -151,7 +153,7 @@ export const CourseBuilderForm = () => {
           <FaRegCircleLeft/>
         </button>
 
-        <IconBtn text={"Next"} onclick={goToNext} >
+        <IconBtn disabled={loading} text={"Next"} onclick={goToNext} >
           <FaRegCircleRight/>
         </IconBtn>
 
