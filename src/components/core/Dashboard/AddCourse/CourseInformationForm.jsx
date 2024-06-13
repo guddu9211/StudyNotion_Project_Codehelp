@@ -278,13 +278,13 @@ const CourseInformationForm = () => {
         />
 
 
-        <div>
+        <div className='flex justify-end gap-x-3'>
             {
                 editCourse && (
                     <button
                         onClick={ () => dispatch(setStep(2)) }
                         disabled={loading}
-                        className='flex items-center gap-x-2 bg-richblack-300'
+                        className='flex items-center gap-x-2 bg-richblack-900 text-richblack-50 px-4 py-2 rounded-md text-lg'
                     >
                         Continue without saving
                     </button>

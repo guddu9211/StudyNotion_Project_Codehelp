@@ -7,6 +7,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import SubSectionModal from './SubSectionModal';
 import ConfirmationModal from '../../../../common/ConfirmationModal';
 import { deleteSection, deleteSubSection } from '../../../../../services/operations/courseDetailsAPI'
+import { RxDropdownMenu } from 'react-icons/rx';
 
 const NestedView = ({handleChangeEditSectionName}) => {
 
@@ -20,6 +21,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
     const [confirmationModal, setConfirmationModal] = useState(false);
 
     const handleDeleteSection = async (sectionId) => {
+        console.log("handleDeleteSection called with section Id as ", sectionId)
         const result = await deleteSection({
             sectionId,
             courseId: course._id,
@@ -56,15 +58,15 @@ const NestedView = ({handleChangeEditSectionName}) => {
     }   
 
   return (
-    <div>
+    <div className='px-2'>
 
         <div className='rounded-lg bg-richblack-700 p-6 px-8'>
             {
                 course?.courseContent?.map((section) => (
                     <details key={section._id} open>
-                        <summary className='flex items-center justify-between gap-x-3 border-b-2'>
+                        <summary className='flex items-center justify-between gap-x-3 border-b-2 mt-4'>
                             <div className='flex items-center gap-x-3'>
-                                <MdArrowDropDown/>
+                                <RxDropdownMenu/>
                                 <p>{section.sectionName}</p>
                             </div>
 
@@ -84,12 +86,8 @@ const NestedView = ({handleChangeEditSectionName}) => {
                                             text2: "All the lectures in this section will be deleted",
                                             btn1Text: "Delete",
                                             btn2Text: "Cancel",
-                                            btn1Handler: () => {
-                                                handleDeleteSection(section._id);
-                                            },
-                                            btn2Handler: () =>  {
-                                                setConfirmationModal(null);
-                                            }
+                                            btn1Handler: () => handleDeleteSection(section._id),
+                                            btn2Handler: () => setConfirmationModal(null),
                                         })
                                     }}
                                 >
@@ -149,7 +147,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
 
                             <button 
                                 onClick={() => setAddSubSection(section._id)}
-                                className='mt-4 flex items-center gap-x-3 text-yellow-50'
+                                className='my-2 flex items-center gap-x-3 text-yellow-50'
                             >
                                 <AiOutlinePlus/>
                                 <p>Add Lecture</p>

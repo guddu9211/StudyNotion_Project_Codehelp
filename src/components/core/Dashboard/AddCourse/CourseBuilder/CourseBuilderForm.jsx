@@ -119,7 +119,7 @@ export const CourseBuilderForm = () => {
         </div>
 
         {/* create section ka button  */}
-        <div className='mt-2 flex w-full gap-4'>
+        <div className='my-4 flex w-full gap-4'>
           <IconBtn type={"submit"} text={editSectionName ? "Edit Section" : "Create Section"} 
                   onclick={() => handleSubmit(onSubmit)}
                   outline={true}
@@ -145,10 +145,10 @@ export const CourseBuilderForm = () => {
         )
       }
 
-      <div className='flex justify-end gap-x-3'>
+      <div className='flex justify-end gap-x-3 py-2 px-4'>
         
         <button onClick={goToPrevious} 
-            className='rounded-md cursor-pointer flex items-center'>
+            className='rounded-md cursor-pointer flex items-center border-richblack-50 border-2 py-2 px-4'>
           <p className='px-2'>Back</p>
           <FaRegCircleLeft/>
         </button>

@@ -85,7 +85,7 @@ export default function ChipInput({
           type="text"
           placeholder={placeholder}
           onKeyDown={handleKeyDown}
-          className="form-style w-full"
+          className="form-style w-full bg-richblack-900 rounded-md py-2 px-4 my-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
         {errors[name] && (
           <span className="ml-2 text-xs tracking-wide text-pink-200">

@@ -119,8 +119,8 @@ const SubSectionModal = ({
     }
 
   return (
-    <div>
-        <div>
+    <div className='fixed inset-0 z-[1000] !mt-0 grid place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm'>
+        <div className='w-11/12 max-w-[35%] rounded-lg border border-richblack-400 bg-richblack-800 p-6'>
             <div className='flex justify-between items-center px-2'>
                 <p>
                     {
@@ -157,7 +157,7 @@ const SubSectionModal = ({
                         id='lectureTitle'
                         placeholder='Enter lecture title'
                         {...register("lectureTitle", {required: true})}
-                        className='w-full'
+                        className='w-full bg-richblack-900 rounded-md py-2 px-4 my-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                      />
                      {
                         errors.lectureTitle && (
@@ -172,7 +172,7 @@ const SubSectionModal = ({
                         id='lectureDesc'
                         placeholder='Enter lecture description'
                         {...register("lectureDesc", {required: true})}
-                        className='w-full min-h-[130px]'  
+                        className='w-full min-h-[130px] bg-richblack-900 rounded-md py-2 px-4 my-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'  
                     />
                     {
                         errors.lectureDesc && (
